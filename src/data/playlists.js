@@ -10,8 +10,12 @@
  *   spotifyUrl   En Spotify: ••• > Compartir > Copiar enlace. Con null
  *                aparece como "Próximamente" y no se puede reproducir.
  *   tracks       Número de canciones (o null).
- *   form         Forma de la portada: 'dintel', 'arco', 'losa',
- *                'eclipse' o 'escalon'.
+ *   cover        (opcional) Qué portada mostrar:
+ *                  sin escribirlo → la portada oficial de Spotify (si hay enlace)
+ *                  'forma'        → la portada geométrica de abajo
+ *                  'images/mi-portada.jpg' → una imagen tuya en public/images/
+ *   form         Forma de la portada geométrica: 'dintel', 'arco', 'losa',
+ *                'eclipse' o 'escalon'. Se usa si no hay portada de Spotify.
  *   tone         Fondo de la portada: 'grafito', 'obsidiana', 'piedra',
  *                'basalto' o 'sombra'.
  */

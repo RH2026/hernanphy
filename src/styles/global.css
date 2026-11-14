@@ -196,6 +196,8 @@ body.menu-open { overflow: hidden; }
 .cover--piedra { background: var(--piedra); }
 .cover--basalto { background: var(--basalto); }
 .cover--sombra { background: var(--sombra); }
+.cover--image { box-shadow: none; }
+.cover__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cover__top { position: absolute; top: 6cqi; left: 6cqi; right: 6cqi; display: flex; justify-content: space-between; color: var(--plata); font-size: max(11px, 2.1cqi); letter-spacing: 0.16em; }
 .cover__bottom { position: absolute; left: 6cqi; bottom: 6cqi; display: flex; flex-direction: column; gap: 1.4cqi; }
 .cover__name { font-weight: 500; font-stretch: 125%; font-size: max(15px, 3.6cqi); letter-spacing: 0.1em; text-transform: uppercase; color: var(--marfil); }
