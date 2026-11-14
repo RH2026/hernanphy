@@ -1,0 +1,30 @@
+---
+import { artist } from '../data/artist.js';
+import { social } from '../data/social.js';
+const links = social.filter((s) => typeof s.url === 'string' && s.url.startsWith('http'));
+---
+<section id="contacto" class="section section--dark" aria-labelledby="contacto-t">
+  <div class="wrap contact">
+    <div class="contact__main" data-reveal>
+      <p class="mono">05 — Contacto · Booking</p>
+      <h2 id="contacto-t" class="shead__title">Booking</h2>
+      {artist.bookingEmail ? (
+        <a class="contact__mail" href={`mailto:${artist.bookingEmail}`}>{artist.bookingEmail}</a>
+      ) : (
+        <p class="contact__mail">Contacto de booking próximamente.</p>
+      )}
+    </div>
+    {links.length > 0 && (
+      <ul class="social" data-reveal>
+        {links.map((s) => (
+          <li>
+            <a href={s.url} target="_blank" rel="noopener me">
+              <span>{s.label}</span><span aria-hidden="true">↗</span>
+              <span class="visually-hidden">(se abre en otra pestaña)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>

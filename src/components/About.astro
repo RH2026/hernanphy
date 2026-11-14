@@ -1,0 +1,15 @@
+---
+import { artist } from '../data/artist.js';
+---
+<section id="acerca" class="section section--dark" aria-labelledby="acerca-t">
+  <div class="wrap about">
+    <div class="about__head shead__titles" data-reveal>
+      <p class="mono">03 — Acerca</p>
+      <h2 id="acerca-t" class="shead__title">Acerca</h2>
+    </div>
+    <div class="about__text" data-reveal>
+      <p class="about__lead">{artist.bio.lead}</p>
+      <p class="about__body">{artist.bio.body}</p>
+    </div>
+  </div>
+</section>

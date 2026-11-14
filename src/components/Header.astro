@@ -1,0 +1,32 @@
+---
+import Symbol from './Symbol.astro';
+import { artist } from '../data/artist.js';
+
+const links = [
+  { href: '#selecciones', label: 'Selecciones' },
+  { href: '#archivo', label: 'Archivo' },
+  { href: '#acerca', label: 'Acerca' },
+  { href: '#contacto', label: 'Contacto' }
+];
+---
+<header class="header">
+  <div class="wrap header__in">
+    <a class="header__home" href="#inicio" aria-label={`${artist.name}, inicio`}>
+      <Symbol />
+    </a>
+    <nav class="nav" aria-label="Principal">
+      {links.map((l) => <a href={l.href} data-nav>{l.label}</a>)}
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
+      <span data-menu-label>Menú</span>
+      <span class="menu-btn__lines" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" data-menu aria-hidden="true">
+  <nav aria-label="Menú móvil" style="display:flex;flex-direction:column">
+    {links.map((l) => <a href={l.href} tabindex="-1" data-menu-link>{l.label}</a>)}
+  </nav>
+  <p class="mono menu__foot">{artist.tagline}</p>
+</div>

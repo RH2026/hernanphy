@@ -1,0 +1,12 @@
+---
+import Logo from './Logo.astro';
+import { artist } from '../data/artist.js';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap footer__in">
+    <Logo class="footer__logo" />
+    <span class="mono footer__tag">{artist.tagline}</span>
+    <span class="mono">© {year} Hernanphy</span>
+  </div>
+</footer>

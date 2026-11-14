@@ -1,0 +1,16 @@
+---
+/* Logotipo HERNANPHY: símbolo-letra (viga I) + ERNANPHY. Trazado propio. */
+interface Props { animate?: boolean; class?: string; label?: string }
+const { animate = false, class: cls = '', label = 'HERNANPHY' } = Astro.props;
+const ERN = 'M120 0h20v100h-20zM140 0h64v18h-64zM140 41h56v18h-56zM140 82h64v18h-64zM224 0H284A29.5 29.5 0 0 1 284 59H244V100H224ZM244 18V41H284A11.5 11.5 0 0 0 284 18ZM272 52L295 52L320 100L297 100zM340 0h20v100h-20zM418 0h20v100h-20zM340 0L367 0L438 100L411 100zM458 100L498 0L522 0L562 100L540 100L532 80L488 80L480 100zM510 25L495.2 62L524.8 62zM582 0h20v100h-20zM660 0h20v100h-20zM582 0L609 0L680 100L653 100zM700 0H760A29.5 29.5 0 0 1 760 59H720V100H700ZM720 18V41H760A11.5 11.5 0 0 0 760 18ZM810 0h20v100h-20zM886 0h20v100h-20zM830 41h56v18h-56zM926 0L950 0L986 56L966 56zM1002 0L1026 0L986 56L966 56zM966 50h20v50h-20z';
+---
+<svg class:list={['logo', { 'logo--animate': animate }, cls]} viewBox="0 0 1026 100" role="img" aria-label={label}>
+  <rect class="ink" x="0" y="0" width="20" height="100" />
+  <rect class="ink bar" x="20" y="41" width="50" height="18" />
+  <g class="beamg">
+    <rect class="beam" x="58" y="0" width="44" height="15" />
+    <rect class="beam" x="70" y="15" width="20" height="70" />
+    <rect class="beam" x="58" y="85" width="44" height="15" />
+  </g>
+  <path class="ink" d={ERN} />
+</svg>

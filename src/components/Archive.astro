@@ -1,0 +1,52 @@
+---
+import { sets } from '../data/sets.js';
+import { embedFor, pad } from '../lib/embed.js';
+
+const items = sets.map((s, i) => ({ ...s, n: `S—${pad(i + 1)}`, embed: embedFor(s.url) }));
+---
+<section id="archivo" class="section" aria-labelledby="archivo-t">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <div class="shead__titles">
+        <p class="mono">04 — Archivo sonoro</p>
+        <h2 id="archivo-t" class="shead__title">Archivo</h2>
+      </div>
+      <p class="shead__intro">Sesiones grabadas, mixes y presentaciones seleccionadas.</p>
+    </div>
+
+    {items.length === 0 ? (
+      <p class="sets-empty mono" data-reveal>Archivo en preparación</p>
+    ) : (
+      <ol class="sets">
+        {items.map((s) => (
+          <li class="set" data-reveal>
+            <span class="set__n mono">{s.n}</span>
+            <span class="set__title">{s.title}</span>
+            <span class="set__platform mono" style="color:var(--plata)">{s.embed ? s.embed.label : s.platform}</span>
+            <span class="set__date mono">{[s.date, s.duration].filter(Boolean).join(' · ')}</span>
+            <span class="set__action">
+              {s.embed ? (
+                <button
+                  class="btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={`set-${s.n}`}
+                  data-embed={s.embed.src}
+                  data-embed-height={s.embed.height ?? ''}
+                  data-embed-ratio={s.embed.ratio ?? ''}
+                  data-embed-title={`${s.title} — reproductor de ${s.embed.label}`}
+                >
+                  <span class="btn__cursor" aria-hidden="true"></span>
+                  <span data-label>Escuchar</span>
+                </button>
+              ) : (
+                <span class="mono">Próximamente</span>
+              )}
+            </span>
+            {s.embed && <div class="set__frame player__frame" id={`set-${s.n}`}></div>}
+          </li>
+        ))}
+      </ol>
+    )}
+  </div>
+</section>

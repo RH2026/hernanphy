@@ -1,0 +1,12 @@
+---
+/* Símbolo viga I (94 × 100). Decorativo por defecto. */
+interface Props { class?: string; label?: string }
+const { class: cls = '', label } = Astro.props;
+---
+<svg class:list={['logo', cls]} viewBox="0 0 94 100" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  <rect class="ink" x="0" y="0" width="16" height="100" />
+  <rect class="ink" x="16" y="42" width="52" height="16" />
+  <rect class="beam" x="58" y="0" width="36" height="12" />
+  <rect class="beam" x="68" y="12" width="16" height="76" />
+  <rect class="beam" x="58" y="88" width="36" height="12" />
+</svg>

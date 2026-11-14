@@ -1,0 +1,65 @@
+---
+import Cover from './Cover.astro';
+import { playlists } from '../data/playlists.js';
+import { embedFor, pad } from '../lib/embed.js';
+
+const total = pad(playlists.length);
+const items = playlists.map((p, i) => ({ ...p, n: pad(i + 1), embed: embedFor(p.spotifyUrl) }));
+const word = ['', 'Una', 'Dos', 'Tres', 'Cuatro', 'Cinco', 'Seis', 'Siete', 'Ocho', 'Nueve', 'Diez'][playlists.length];
+const intro = word
+  ? `${word} ${playlists.length === 1 ? 'colección' : 'colecciones'}, ${word.toLowerCase()} ${playlists.length === 1 ? 'estado' : 'estados'} de ánimo. Cada una es un recorrido, no una lista.`
+  : 'Cada colección es un recorrido, no una lista.';
+---
+<section id="selecciones" class="section" aria-labelledby="selecciones-t">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <div class="shead__titles">
+        <p class="mono">02 — Selecciones</p>
+        <h2 id="selecciones-t" class="shead__title">Selecciones</h2>
+      </div>
+      <p class="shead__intro">{intro}</p>
+    </div>
+
+    <div class="collections">
+      {items.map((p) => (
+        <article class="collection" data-reveal aria-labelledby={`pl-${p.n}`}>
+          <Cover n={p.n} title={p.title} form={p.form} tone={p.tone} />
+          <div class="collection__info">
+            <p class="mono">N° {p.n} / {total}</p>
+            <h3 id={`pl-${p.n}`} class="collection__title">{p.title}</h3>
+            <p class="collection__desc">{p.description}</p>
+            <p class="mono mono--meta">
+              Playlist{p.tracks ? ` · ${p.tracks} canciones` : ''} · Spotify
+            </p>
+          </div>
+          <div class="collection__actions">
+            {p.embed ? (
+              <>
+                <button
+                  class="btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={`frame-${p.n}`}
+                  data-embed={p.embed.src}
+                  data-embed-height={p.embed.height}
+                  data-embed-title={`${p.title} — reproductor de Spotify`}
+                >
+                  <span class="btn__cursor" aria-hidden="true"></span>
+                  <span data-label>Escuchar aquí</span>
+                </button>
+                <a class="link-out" href={p.embed.href} target="_blank" rel="noopener">
+                  Abrir en Spotify <span aria-hidden="true">↗</span><span class="visually-hidden">(se abre en otra pestaña)</span>
+                </a>
+              </>
+            ) : (
+              <button class="btn" type="button" disabled>
+                <span class="btn__cursor" aria-hidden="true"></span>Próximamente
+              </button>
+            )}
+          </div>
+          {p.embed && <div class="player__frame" id={`frame-${p.n}`}></div>}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

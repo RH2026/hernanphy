@@ -1,0 +1,23 @@
+---
+/* Portada de colección: índice arriba, una forma arquitectónica, título abajo. */
+interface Props { n: string; title: string; form: string; tone: string }
+const { n, title, form, tone } = Astro.props;
+const forms = ['dintel', 'arco', 'losa', 'eclipse', 'escalon'];
+const f = forms.includes(form) ? form : 'losa';
+const tones = ['grafito', 'obsidiana', 'piedra', 'basalto', 'sombra'];
+const t = tones.includes(tone) ? tone : 'grafito';
+---
+<div class={`cover cover--${t}`} role="img" aria-label={`Portada de ${title}`}>
+  <div class="cover__top mono"><span>N° {n}</span><span>Playlist</span></div>
+  <div class="cover__form" aria-hidden="true">
+    {f === 'dintel' && <div class="f-dintel"><div class="f-dintel__top"></div><div class="f-dintel__cols"><span></span><span></span></div></div>}
+    {f === 'arco' && <div class="f-arco"><div><div></div></div></div>}
+    {f === 'losa' && <div class="f-losa"><div class="f-losa__slab"></div><div class="f-losa__line"></div></div>}
+    {f === 'eclipse' && <div class="f-eclipse"></div>}
+    {f === 'escalon' && <div class="f-escalon"><span></span><span></span><span></span><span></span></div>}
+  </div>
+  <div class="cover__bottom" aria-hidden="true">
+    <span class="cover__name">{title}</span>
+    <span class="mono cover__by">Hernanphy</span>
+  </div>
+</div>

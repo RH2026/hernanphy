@@ -1,0 +1,48 @@
+---
+/*
+ * Portada.
+ * Escritorio: "Umbral" — logotipo a la izquierda, arco con retrato a la derecha.
+ * Móvil: "Monolito" — losa de piedra y logotipo a todo el ancho.
+ */
+import Logo from './Logo.astro';
+import { artist } from '../data/artist.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const portrait = artist.portrait ? base + artist.portrait.replace(/^\//, '') : null;
+---
+<section id="inicio" class="hero" aria-label={`${artist.name} — ${artist.tagline}`}>
+  <h1 class="visually-hidden">{artist.name} — {artist.tagline}</h1>
+
+  <div class="hero-b">
+    <div class="wrap hero-b__in">
+      <div class="hero-b__text">
+        <p class="mono">N° 00 — {artist.role}</p>
+        <Logo animate />
+        <div class="hero-b__foot mono">
+          <span class="hero-b__tagline">{artist.tagline}</span>
+          <a class="scroll-cue" href="#selecciones"><span>Bajar</span><span class="scroll-cue__line" aria-hidden="true"></span></a>
+        </div>
+      </div>
+      <div class="hero-b__arch" aria-hidden={portrait ? undefined : 'true'}>
+        {portrait
+          ? <img src={portrait} alt={artist.portraitAlt} width="800" height="1100" fetchpriority="high" decoding="async" />
+          : <div class="hero-b__shade"></div>}
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-a">
+    <div class="hero-a__slab" aria-hidden="true">
+      <div class="hero-a__stone">
+        <svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter><rect width="100%" height="100%" filter="url(#grain)" opacity="0.22" /></svg>
+      </div>
+      <div class="hero-a__side"></div>
+    </div>
+    <div class="hero-a__bottom">
+      <Logo animate />
+      <div class="hero-a__foot mono">
+        <span>{artist.tagline}</span>
+        <a class="scroll-cue" href="#selecciones" aria-label="Bajar a Selecciones"><span class="scroll-cue__line" style="height:32px" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
