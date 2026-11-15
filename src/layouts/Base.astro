@@ -5,7 +5,7 @@ import { social } from '../data/social.js';
 
 interface Props { title?: string; description?: string }
 const {
-  title = `${artist.name} — ${artist.tagline}`,
+  title = `${artist.name} · ${artist.alias} — ${artist.tagline}`,
   description = artist.seoDescription
 } = Astro.props;
 
@@ -15,10 +15,11 @@ const ogImage = new URL(base + 'og.png', Astro.site);
 const sameAs = social.filter((s) => s.url).map((s) => s.url);
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'MusicGroup',
-  name: 'Hernanphy',
+  '@type': 'Person',
+  name: artist.name,
+  alternateName: artist.alias,
+  jobTitle: 'DJ',
   url: canonical.href,
-  genre: ['Tribal tech house', 'Minimal', 'Progressive house'],
   ...(sameAs.length ? { sameAs } : {})
 };
 ---
@@ -36,7 +37,7 @@ const jsonLd = {
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Hernanphy" />
+    <meta property="og:site_name" content={artist.alias} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

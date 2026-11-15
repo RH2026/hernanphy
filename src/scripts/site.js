@@ -1,8 +1,10 @@
 /*
- * Interacción del sitio: menú móvil, monolito con luz, reproductor fijo,
+ * Interacción del sitio: menú móvil, portada (ver hero.js), reproductor fijo,
  * enlaces internos sin "#" en la dirección, aparición al hacer scroll y
  * sección activa en el menú. Sin dependencias.
  */
+
+import { initHero } from './hero.js';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -51,74 +53,6 @@ function initAnchors() {
     target.focus({ preventScroll: true });
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
   });
-}
-
-/* ---------- Monolito con luz ----------
- * La luz sigue al cursor (o al dedo). Si nadie la mueve, deriva sola como
- * un sol lento. Solo se anima mientras la portada está en pantalla. */
-function initMonolith() {
-  const scenes = Array.from(document.querySelectorAll('[data-monolith]'));
-  if (!scenes.length) return;
-
-  const apply = (el, lx, ly) => {
-    const skew = Math.max(-62, Math.min(62, (0.5 - lx) * 130));
-    const len = Math.max(0.25, Math.min(1.1, 0.25 + ly * 1.2));
-    el.style.setProperty('--lx', lx.toFixed(4));
-    el.style.setProperty('--ly', ly.toFixed(4));
-    el.style.setProperty('--skew', `${skew.toFixed(2)}deg`);
-    el.style.setProperty('--len', len.toFixed(3));
-    el.style.setProperty('--lumL', (0.6 + (1 - lx) * 0.85).toFixed(3));
-    el.style.setProperty('--lumR', (0.55 + lx * 0.85).toFixed(3));
-  };
-
-  // Posición de reposo (luz alta a la izquierda).
-  scenes.forEach((el) => apply(el, 0.24, 0.2));
-  if (reduceMotion.matches) return;
-
-  const state = scenes.map(() => ({ x: 0.24, y: 0.2, tx: 0.24, ty: 0.2 }));
-  let pointer = null; // { x, y } en pantalla
-  let lastMove = 0;
-  let visible = true;
-  let raf = 0;
-
-  const onMove = (x, y) => {
-    pointer = { x, y };
-    lastMove = performance.now();
-  };
-  window.addEventListener('pointermove', (e) => onMove(e.clientX, e.clientY), { passive: true });
-  window.addEventListener('touchmove', (e) => e.touches[0] && onMove(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-
-  const tick = (t) => {
-    const idle = !pointer || t - lastMove > 3500;
-    scenes.forEach((el, i) => {
-      const r = el.getBoundingClientRect();
-      if (!r.width || !r.height) return;
-      const s = state[i];
-      if (idle) {
-        s.tx = 0.5 + 0.38 * Math.sin(t / 7000);
-        s.ty = 0.22 + 0.12 * Math.cos(t / 9000);
-      } else {
-        s.tx = (pointer.x - r.left) / r.width;
-        s.ty = (pointer.y - r.top) / r.height;
-      }
-      s.tx = Math.max(-0.1, Math.min(1.1, s.tx));
-      s.ty = Math.max(0.04, Math.min(0.62, s.ty));
-      const k = idle ? 0.02 : 0.09;
-      s.x += (s.tx - s.x) * k;
-      s.y += (s.ty - s.y) * k;
-      apply(el, s.x, s.y);
-    });
-    raf = visible ? requestAnimationFrame(tick) : 0;
-  };
-
-  const hero = document.getElementById('inicio');
-  if (hero && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (visible && !raf) raf = requestAnimationFrame(tick);
-    }).observe(hero);
-  }
-  raf = requestAnimationFrame(tick);
 }
 
 /* ---------- Reproductores ----------
@@ -271,7 +205,7 @@ function initScrollSpy() {
 
 initMenu();
 initAnchors();
-initMonolith();
+initHero();
 initPlayers();
 initReveal();
 initScrollSpy();

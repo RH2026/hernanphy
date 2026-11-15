@@ -1,46 +1,51 @@
 ---
 /*
- * Portada.
- * Escritorio: "Umbral" — logotipo a la izquierda; a la derecha el arco con
- * tu retrato, o, si no hay retrato, el monolito con luz interactiva.
- * Móvil: "Monolito" — la losa con luz y el logotipo a todo el ancho.
+ * Portada a pantalla completa.
+ * - Fondo: un campo de cursores (la viga en I de la H) que reacciona al
+ *   mouse o al dedo; un clic o toque lanza un pulso, como un golpe de bombo.
+ * - Nombre: HERNAN·DEZ ↔ HERNAN·PHY. Las últimas tres letras se decodifican
+ *   entre el apellido y el alias (solas, o al pasar el mouse).
+ * - Debajo se teclean los roles: programador, melómano, DJ.
+ * La lógica vive en src/scripts/hero.js.
  */
-import Logo from './Logo.astro';
-import Monolith from './Monolith.astro';
 import { artist } from '../data/artist.js';
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const portrait = artist.portrait ? base + artist.portrait.replace(/^\//, '') : null;
+const last = artist.lastName.toUpperCase();      // HERNANDEZ
+const alias = artist.alias.toUpperCase();        // HERNANPHY
+const shared = 'HERNAN';
+const tailA = last.slice(shared.length);         // DEZ
+const tailB = alias.slice(shared.length);        // PHY
+const rest = shared.slice(1);                    // ERNAN
 ---
-<section id="inicio" class="hero" aria-label={`${artist.name} — ${artist.tagline}`}>
-  <h1 class="visually-hidden">{artist.name} — {artist.tagline}</h1>
+<section id="inicio" class="hx" aria-labelledby="hx-name" data-hero>
+  <canvas class="hx__field" data-field aria-hidden="true"></canvas>
+  <div class="hx__vignette" aria-hidden="true"></div>
 
-  <div class="hero-b">
-    <div class="wrap hero-b__in">
-      <div class="hero-b__text">
-        <p class="mono">N° 00 — {artist.role}</p>
-        <Logo animate />
-        <div class="hero-b__foot mono">
-          <span class="hero-b__tagline">{artist.tagline}</span>
-          <a class="scroll-cue" href="#selecciones"><span>Bajar</span><span class="scroll-cue__line" aria-hidden="true"></span></a>
-        </div>
-      </div>
-      {portrait ? (
-        <div class="hero-b__arch">
-          <img src={portrait} alt={artist.portraitAlt} width="800" height="1100" fetchpriority="high" decoding="async" />
-        </div>
-      ) : (
-        <div class="hero-b__stage"><Monolith /></div>
-      )}
-    </div>
-  </div>
+  <div class="wrap hx__in">
+    <p class="hx__first" data-reveal-now>{artist.firstName.toUpperCase()}</p>
 
-  <div class="hero-a">
-    <Monolith class="mono-scene--mobile" />
-    <div class="hero-a__bottom">
-      <Logo animate />
-      <div class="hero-a__foot mono">
-        <span>{artist.tagline}</span>
-        <a class="scroll-cue" href="#selecciones" aria-label="Bajar a Selecciones"><span class="scroll-cue__line" style="height:32px" aria-hidden="true"></span></a>
+    <h1 id="hx-name" class="hx__name" data-name data-a={tailA} data-b={tailB} aria-label={`${artist.name}, alias ${artist.alias}`}>
+      <svg class="hx__h" viewBox="0 0 102 100" aria-hidden="true">
+        <rect x="0" y="0" width="20" height="100" class="ink" />
+        <rect x="20" y="41" width="50" height="18" class="ink hx__bar" />
+        <g class="hx__beam">
+          <rect x="58" y="0" width="44" height="15" />
+          <rect x="70" y="15" width="20" height="70" />
+          <rect x="58" y="85" width="44" height="15" />
+        </g>
+      </svg><span aria-hidden="true">{rest}</span><span class="hx__tail" aria-hidden="true" data-tail>{[...tailA].map((c) => <span class="hx__ch">{c}</span>)}</span>
+    </h1>
+
+    <div class="hx__foot">
+      <p class="hx__roles">
+        <span class="visually-hidden">{artist.name} es {artist.alias}: {artist.roles.join(', ')}.</span>
+        <span aria-hidden="true">
+          <span class="hx__is">es <b>{artist.alias}</b> —</span>
+          <span class="hx__typed" data-typed data-roles={JSON.stringify(artist.roles)}>{artist.roles[0]}</span><span class="hx__caret"></span>
+        </span>
+      </p>
+      <div class="hx__aside mono">
+        <span class="hx__hint" data-hint><span class="hx__hint-mouse">Mueve el cursor · haz clic</span><span class="hx__hint-touch">Toca la pantalla</span></span>
+        <a class="scroll-cue" href="#selecciones"><span>Bajar</span><span class="scroll-cue__line" aria-hidden="true"></span></a>
       </div>
     </div>
   </div>

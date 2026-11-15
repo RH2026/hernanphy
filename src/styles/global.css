@@ -137,24 +137,67 @@ button { font: inherit; color: inherit; }
 .menu__foot { margin-top: auto; }
 body.menu-open { overflow: hidden; }
 
-/* ---------- Hero ---------- */
-.hero { position: relative; background: var(--obsidiana); }
+/* ---------- Portada a pantalla completa ---------- */
+.hx {
+  position: relative; overflow: hidden;
+  height: 100vh; height: 100svh; min-height: 620px;
+  background: var(--obsidiana);
+}
+.hx__field { position: absolute; inset: 0; display: block; touch-action: pan-y; }
+.hx__vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(12, 14, 17, 0.92) 0%, rgba(12, 14, 17, 0.55) 30%, rgba(12, 14, 17, 0) 58%),
+    radial-gradient(120% 90% at 50% 40%, rgba(12, 14, 17, 0) 55%, rgba(12, 14, 17, 0.7) 100%);
+}
+.hx__in {
+  position: relative; z-index: 2; height: 100%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: clamp(24px, 4vh, 44px); pointer-events: none;
+}
+.hx__in a, .hx__name { pointer-events: auto; }
+.hx__first {
+  font-weight: 300; font-stretch: 125%; text-transform: uppercase;
+  font-size: clamp(13px, 1.5vw, 22px); letter-spacing: 0.55em; color: var(--plata);
+  margin-bottom: clamp(8px, 1.4vw, 18px);
+}
+.hx__name {
+  margin: 0; align-self: flex-start; white-space: nowrap; line-height: 0.8;
+  font-weight: 600; font-stretch: 125%; letter-spacing: -0.005em;
+  font-size: 11vw; /* el script lo ajusta al ancho exacto */
+  color: var(--marfil); cursor: default;
+}
+.hx__h { display: inline-block; height: 0.71em; width: auto; margin-right: 0.035em; vertical-align: baseline; overflow: visible; }
+.hx__h .ink { fill: var(--marfil); }
+.hx__beam { fill: var(--titanio); transition: fill 0.5s var(--ease); }
+.hx__name.is-alias .hx__beam { fill: var(--marfil); }
+@media (prefers-reduced-motion: no-preference) {
+  .hx__bar { transform-box: fill-box; transform-origin: left center; animation: draw 0.6s var(--ease) 0.2s both; }
+  .hx__beam { animation: fade 0.3s ease 0.7s both; }
+}
+.hx__tail { display: inline-block; }
+.hx__ch { display: inline-block; transition: color 0.3s var(--ease); }
+.hx__name.is-alias .hx__tail { color: var(--titanio); }
 
-/* Escritorio: Umbral */
-.hero-b { min-height: max(100vh, 760px); display: flex; flex-direction: column; }
-.hero-b__in {
-  flex: 1; display: flex; gap: 48px; align-items: stretch;
-  padding-top: 108px; padding-bottom: 40px;
+.hx__foot {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;
+  gap: 18px 32px; margin-top: clamp(18px, 2.6vw, 34px);
 }
-.hero-b__text { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 28px; }
-.hero-b__foot { display: flex; justify-content: space-between; gap: 16px; }
-.hero-b__tagline { letter-spacing: 0.6em; }
-.hero-b__arch {
-  flex: 1 1 320px; min-width: 0; min-height: 480px; position: relative; overflow: hidden;
-  background: var(--basalto); border-radius: 999px 999px 0 0;
+.hx__roles { font-weight: 300; font-stretch: 112%; font-size: clamp(18px, 2vw, 28px); line-height: 1.3; color: var(--plata); }
+.hx__roles b { font-weight: 500; color: var(--marfil); }
+.hx__typed { color: var(--marfil); }
+.hx__caret { display: inline-block; width: 2px; height: 0.95em; margin-left: 5px; vertical-align: -0.12em; background: var(--titanio); }
+@media (prefers-reduced-motion: no-preference) {
+  .hx__caret { animation: blink 1.06s steps(1, end) infinite; }
 }
-.hero-b__arch img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.08); }
-.hero-b__shade { position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: var(--grafito); }
+.hx__aside { display: flex; align-items: center; gap: 32px; }
+.hx__hint { transition: opacity 0.6s var(--ease); }
+.hx__hint.is-gone { opacity: 0; }
+.hx__hint-touch { display: none; }
+@media (hover: none) {
+  .hx__hint-mouse { display: none; }
+  .hx__hint-touch { display: inline; }
+}
 
 .scroll-cue { display: inline-flex; align-items: center; gap: 14px; color: var(--titanio); }
 .scroll-cue__line { width: 1px; height: 40px; background: currentColor; transform-origin: top; }
@@ -162,57 +205,6 @@ body.menu-open { overflow: hidden; }
   .scroll-cue__line { animation: cue 2.4s var(--ease) 1.2s infinite; }
 }
 @keyframes cue { 0% { transform: scaleY(0); } 45% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
-
-/* Móvil: Monolito */
-.hero-a { display: none; position: relative; overflow: hidden; height: max(100svh, 640px); background: var(--obsidiana); }
-.hero-a__bottom { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 0 var(--gutter) 32px; display: flex; flex-direction: column; gap: 20px; }
-.hero-a__foot { display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.4em; font-size: 11px; }
-
-/* Escenario del monolito (escritorio, columna derecha) */
-.hero-b__stage { flex: 1 1 360px; min-width: 0; min-height: 480px; position: relative; }
-
-/* ---------- Monolito con luz ----------
- * Variables que mueve el script: --lx, --ly (posición de la luz, 0–1),
- * --skew (inclinación de la sombra), --len (largo de la sombra),
- * --lumL / --lumR (luz en cada cara de la losa). */
-.mono-scene {
-  --lx: 0.25; --ly: 0.2; --skew: 30deg; --len: 0.6; --lumL: 1.3; --lumR: 0.75;
-  --horizon: 80%;
-  position: absolute; inset: 0; overflow: hidden; container-type: size;
-  background: var(--obsidiana);
-}
-.mono-scene--mobile { --horizon: 58%; }
-.mono-scene__floor {
-  position: absolute; left: 0; right: 0; top: var(--horizon); bottom: 0;
-  background: #101317; border-top: 1px solid var(--basalto);
-}
-.mono-scene__slab {
-  position: absolute; left: 50%; bottom: calc(100% - var(--horizon));
-  width: clamp(72px, 24cqw, 190px); height: calc(var(--horizon) * 0.78);
-  transform: translateX(-50%); display: flex; overflow: hidden;
-}
-.mono-scene--mobile .mono-scene__slab { width: 112px; height: calc(var(--horizon) * 0.82); }
-.mono-scene__face--l { width: 30%; background: #3B4148; filter: brightness(var(--lumL)); }
-.mono-scene__face--r { flex: 1; background: var(--piedra); filter: brightness(var(--lumR)); }
-.mono-scene__grain { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.mono-scene__shadow {
-  position: absolute; left: 50%; top: var(--horizon);
-  width: clamp(72px, 24cqw, 190px); height: 70%;
-  transform-origin: top center;
-  transform: translateX(-50%) skewX(var(--skew)) scaleY(var(--len));
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0) 85%);
-}
-.mono-scene--mobile .mono-scene__shadow { width: 112px; }
-.mono-scene__glow {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at calc(var(--lx) * 100%) calc(var(--ly) * 100%), rgba(242, 240, 234, 0.09), rgba(242, 240, 234, 0) 42%);
-}
-.mono-scene__sun {
-  position: absolute; left: calc(var(--lx) * 100%); top: calc(var(--ly) * 100%);
-  width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
-  background: var(--marfil); opacity: 0.8;
-  box-shadow: 0 0 22px 6px rgba(242, 240, 234, 0.22);
-}
 
 /* ---------- Encabezado de sección ---------- */
 .section { padding-block: var(--section); }
@@ -379,8 +371,7 @@ body.menu-open { overflow: hidden; }
   .nav { display: none; }
   .menu-btn { display: inline-flex; }
   .header__in { padding-block: 20px; }
-  .hero-b { display: none; }
-  .hero-a { display: block; }
+  .hx__aside { width: 100%; justify-content: space-between; }
   .collection__actions { flex-direction: column; align-items: stretch; gap: 4px; }
   .collection__actions .btn { justify-content: center; }
   .collection__actions .link-out { justify-content: center; }
