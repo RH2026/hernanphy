@@ -31,6 +31,16 @@ export const playlists = [
     tone: 'grafito'
   },
   {
+    title: 'Space Groove',
+    description:
+      'Del minimal al tribal, con un clímax vocal a 128 y regreso al deep. Un viaje completo, con groove de principio a fin.',
+    spotifyUrl: null,
+    tracks: 17,
+    cover: 'images/space-groove.jpg',
+    form: 'eclipse',
+    tone: 'basalto'
+  },
+  {
     title: 'Ritual Frequency',
     description: 'Percusión tribal y repetición hipnótica. Un recorrido hacia adentro.',
     spotifyUrl: null,
