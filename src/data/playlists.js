@@ -26,6 +26,7 @@ export const playlists = [
       'Ceremonia a baja intensidad. Un ritual lento, de pulso contenido, que se escucha con el cuerpo.',
     spotifyUrl: 'https://open.spotify.com/playlist/1HbZo4OZqlCApodM0ylfWt',
     tracks: 21,
+    cover: 'images/low-ceremony.jpg',
     form: 'dintel',
     tone: 'grafito'
   },

@@ -21,7 +21,8 @@ const rest = shared.slice(1);                    // ERNAN
   <div class="hx__vignette" aria-hidden="true"></div>
 
   <div class="wrap hx__in">
-    <p class="hx__first" data-reveal-now>{artist.firstName.toUpperCase()}</p>
+    <div class="hx__title">
+    <p class="hx__first">{artist.firstName.toUpperCase()}</p>
 
     <h1 id="hx-name" class="hx__name" data-name data-a={tailA} data-b={tailB} aria-label={`${artist.name}, alias ${artist.alias}`}>
       <svg class="hx__h" viewBox="0 0 102 100" aria-hidden="true">
@@ -34,15 +35,16 @@ const rest = shared.slice(1);                    // ERNAN
         </g>
       </svg><span aria-hidden="true">{rest}</span><span class="hx__tail" aria-hidden="true" data-tail>{[...tailA].map((c) => <span class="hx__ch">{c}</span>)}</span>
     </h1>
+    <p class="hx__roles">
+      <span class="visually-hidden">{artist.name} es {artist.alias}: {artist.roles.join(', ')}.</span>
+      <span aria-hidden="true">
+        <span class="hx__is">es <b>{artist.alias}</b> —</span>
+        <span class="hx__typed" data-typed data-roles={JSON.stringify(artist.roles)}>{artist.roles[0]}</span><span class="hx__caret"></span>
+      </span>
+    </p>
+    </div>
 
     <div class="hx__foot">
-      <p class="hx__roles">
-        <span class="visually-hidden">{artist.name} es {artist.alias}: {artist.roles.join(', ')}.</span>
-        <span aria-hidden="true">
-          <span class="hx__is">es <b>{artist.alias}</b> —</span>
-          <span class="hx__typed" data-typed data-roles={JSON.stringify(artist.roles)}>{artist.roles[0]}</span><span class="hx__caret"></span>
-        </span>
-      </p>
       <div class="hx__aside mono">
         <span class="hx__hint" data-hint><span class="hx__hint-mouse">Mueve el cursor · haz clic</span><span class="hx__hint-touch">Toca la pantalla</span></span>
         <a class="scroll-cue" href="#selecciones"><span>Bajar</span><span class="scroll-cue__line" aria-hidden="true"></span></a>
