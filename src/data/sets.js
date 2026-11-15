@@ -7,7 +7,7 @@
  *
  *   title     Nombre de la sesión.
  *   date      Texto libre, p. ej. 'Marzo 2026'.
- *   platform  'spotify', 'soundcloud' o 'youtube'.
+ *   platform  'spotify', 'soundcloud', 'mixcloud' o 'youtube'.
  *   url       Enlace normal de la sesión (el de compartir).
  *   duration  Texto libre o null, p. ej. '1 h 32 min'.
  *

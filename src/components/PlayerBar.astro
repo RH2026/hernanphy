@@ -1,0 +1,18 @@
+---
+/*
+ * Reproductor fijo en la parte de abajo. Aparece al pulsar "Escuchar aquí"
+ * y sigue sonando mientras se recorre el sitio. Lo maneja src/scripts/site.js.
+ */
+---
+<div class="pbar" id="reproductor" data-pbar hidden role="region" aria-label="Reproductor">
+  <div class="wrap pbar__in">
+    <div class="pbar__meta">
+      <span class="mono pbar__state"><span class="pbar__cursor" aria-hidden="true"></span>Sonando</span>
+      <span class="pbar__title" data-pbar-title></span>
+    </div>
+    <div class="pbar__frame" data-pbar-frame></div>
+    <button class="pbar__close" type="button" data-pbar-close aria-label="Cerrar reproductor">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.2" fill="none" /></svg>
+    </button>
+  </div>
+</div>

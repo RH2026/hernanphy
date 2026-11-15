@@ -51,9 +51,11 @@ const intro = word
                   class="btn"
                   type="button"
                   aria-expanded="false"
-                  aria-controls={`frame-${p.n}`}
+                  aria-controls="reproductor"
                   data-embed={p.embed.src}
                   data-embed-height={p.embed.height}
+                  data-embed-bar-height={p.embed.barHeight}
+                  data-embed-name={`N° ${p.n} · ${p.title}`}
                   data-embed-title={`${p.title} — reproductor de Spotify`}
                 >
                   <span class="btn__cursor" aria-hidden="true"></span>
@@ -69,7 +71,6 @@ const intro = word
               </button>
             )}
           </div>
-          {p.embed && <div class="player__frame" id={`frame-${p.n}`}></div>}
         </article>
       ))}
     </div>

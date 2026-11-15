@@ -30,10 +30,13 @@ const items = sets.map((s, i) => ({ ...s, n: `S—${pad(i + 1)}`, embed: embedFo
                   class="btn"
                   type="button"
                   aria-expanded="false"
-                  aria-controls={`set-${s.n}`}
+                  aria-controls={s.embed.provider === 'youtube' ? `set-${s.n}` : 'reproductor'}
                   data-embed={s.embed.src}
                   data-embed-height={s.embed.height ?? ''}
+                  data-embed-bar-height={s.embed.barHeight ?? ''}
                   data-embed-ratio={s.embed.ratio ?? ''}
+                  data-embed-inline={s.embed.provider === 'youtube' ? 'true' : undefined}
+                  data-embed-name={`${s.n} · ${s.title}`}
                   data-embed-title={`${s.title} — reproductor de ${s.embed.label}`}
                 >
                   <span class="btn__cursor" aria-hidden="true"></span>
@@ -43,7 +46,7 @@ const items = sets.map((s, i) => ({ ...s, n: `S—${pad(i + 1)}`, embed: embedFo
                 <span class="mono">Próximamente</span>
               )}
             </span>
-            {s.embed && <div class="set__frame player__frame" id={`set-${s.n}`}></div>}
+            {s.embed && s.embed.provider === 'youtube' && <div class="set__frame player__frame" id={`set-${s.n}`}></div>}
           </li>
         ))}
       </ol>

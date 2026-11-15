@@ -1,5 +1,5 @@
 /*
- * Convierte un enlace normal de Spotify, SoundCloud o YouTube en la
+ * Convierte un enlace normal de Spotify, SoundCloud, Mixcloud o YouTube en la
  * dirección de su reproductor oficial. Si el enlace no se reconoce,
  * devuelve null y el sitio muestra "Próximamente".
  */
@@ -24,6 +24,7 @@ export function embedFor(url) {
       src: `https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0`,
       href: `https://open.spotify.com/${type}/${id}`,
       height: compact ? 152 : 352,
+      barHeight: 80,
       ratio: null
     };
   }
@@ -47,6 +48,7 @@ export function embedFor(url) {
       src: `https://w.soundcloud.com/player/?${params.toString()}`,
       href: url,
       height: isSet ? 450 : 166,
+      barHeight: 120,
       ratio: null
     };
   }
@@ -66,7 +68,22 @@ export function embedFor(url) {
       src: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`,
       href: `https://www.youtube.com/watch?v=${id}`,
       height: null,
+      barHeight: null,
       ratio: '16 / 9'
+    };
+  }
+
+  if (host === 'mixcloud.com' || host === 'm.mixcloud.com') {
+    const path = u.pathname.endsWith('/') ? u.pathname : `${u.pathname}/`;
+    if (path.split('/').filter(Boolean).length < 2) return null;
+    return {
+      provider: 'mixcloud',
+      label: 'Mixcloud',
+      src: `https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=0&autoplay=1&feed=${encodeURIComponent(path)}`,
+      href: `https://www.mixcloud.com${path}`,
+      height: 120,
+      barHeight: 60,
+      ratio: null
     };
   }
 
