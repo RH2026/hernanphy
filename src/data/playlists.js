@@ -34,7 +34,7 @@ export const playlists = [
     title: 'Space Groove',
     description:
       'Del minimal al tribal, con un clímax vocal a 128 y regreso al deep. Un viaje completo, con groove de principio a fin.',
-    spotifyUrl: null,
+    spotifyUrl: 'https://open.spotify.com/playlist/1ODKIJKcWWDFTwv8PzdOQJ',
     tracks: 17,
     cover: 'images/space-groove.jpg',
     form: 'eclipse',
