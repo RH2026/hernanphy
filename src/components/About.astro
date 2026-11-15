@@ -1,5 +1,6 @@
 ---
 import { artist } from '../data/artist.js';
+const { quote, paragraphs, facts } = artist.bio;
 ---
 <section id="acerca" class="section section--dark" aria-labelledby="acerca-t">
   <div class="wrap about">
@@ -7,9 +8,19 @@ import { artist } from '../data/artist.js';
       <p class="mono">03 — Acerca</p>
       <h2 id="acerca-t" class="shead__title">Acerca</h2>
     </div>
-    <div class="about__text" data-reveal>
-      <p class="about__lead">{artist.bio.lead}</p>
-      <p class="about__body">{artist.bio.body}</p>
+    <div class="about__text">
+      <blockquote class="about__quote" data-reveal>
+        <p>{quote}</p>
+      </blockquote>
+      {paragraphs.map((p) => <p class="about__body" data-reveal>{p}</p>)}
+      <dl class="about__facts" data-reveal>
+        {facts.map((f) => (
+          <div class="about__fact">
+            <dt class="mono">{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   </div>
 </section>
