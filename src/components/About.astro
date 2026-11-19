@@ -1,12 +1,23 @@
 ---
 import { artist } from '../data/artist.js';
 const { quote, paragraphs, facts } = artist.bio;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <section id="acerca" class="section section--dark" aria-labelledby="acerca-t">
   <div class="wrap about">
     <div class="about__head shead__titles" data-reveal>
       <p class="mono">03 — Acerca</p>
       <h2 id="acerca-t" class="shead__title">Acerca</h2>
+      <figure class="about__photo">
+        <img
+          src={`${base}hernanphy-retrato.webp`}
+          alt="Retrato en blanco y negro de Hernanphy, de pie y vestido de negro, dentro de un espacio de concreto atravesado por un haz de luz diagonal."
+          width="1230"
+          height="1278"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
     </div>
     <div class="about__text">
       <blockquote class="about__quote" data-reveal>
