@@ -1,32 +1,56 @@
 ---
-import Symbol from './Symbol.astro';
+/*
+ * Portada a pantalla completa.
+ * - Fondo: un campo de cursores (la viga en I de la H) que reacciona al
+ *   mouse o al dedo; un clic o toque lanza un pulso, como un golpe de bombo.
+ * - Nombre: HERNAN·DEZ ↔ HERNAN·PHY. Las últimas tres letras se decodifican
+ *   entre el apellido y el alias (solas, o al pasar el mouse).
+ * - Debajo se teclean los roles: programador, melómano, DJ.
+ * La lógica vive en src/scripts/hero.js.
+ */
 import { artist } from '../data/artist.js';
-
-const links = [
-  { href: '#selecciones', label: 'Selecciones' },
-  { href: '#archivo', label: 'Archivo' },
-  { href: '#acerca', label: 'Acerca' },
-  { href: '#contacto', label: 'Contacto' }
-];
+const last = artist.lastName.toUpperCase();      // HERNANDEZ
+const alias = artist.alias.toUpperCase();        // HERNANPHY
+const shared = 'HERNAN';
+const tailA = last.slice(shared.length);         // DEZ
+const tailB = alias.slice(shared.length);        // PHY
+const rest = shared.slice(1);                    // ERNAN
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
-<header class="header">
-  <div class="wrap header__in">
-    <a class="header__home" href="#inicio" aria-label={`${artist.alias}, inicio`}>
-      <Symbol />
-    </a>
-    <nav class="nav" aria-label="Principal">
-      {links.map((l) => <a href={l.href} data-nav>{l.label}</a>)}
-    </nav>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
-      <span data-menu-label>Menú</span>
-      <span class="menu-btn__lines" aria-hidden="true"><span></span><span></span></span>
-    </button>
-  </div>
-</header>
+<section id="inicio" class="hx" aria-labelledby="hx-name" data-hero>
+  <canvas class="hx__field" data-field aria-hidden="true"></canvas>
+  <img class="hx__photo" src={`${base}hernanphy-retrato.webp`} alt="" width="1230" height="1278" decoding="async" fetchpriority="high" aria-hidden="true" />
+  <div class="hx__vignette" aria-hidden="true"></div>
 
-<div class="menu" id="menu" data-menu aria-hidden="true">
-  <nav aria-label="Menú móvil" style="display:flex;flex-direction:column">
-    {links.map((l) => <a href={l.href} tabindex="-1" data-menu-link>{l.label}</a>)}
-  </nav>
-  <p class="mono menu__foot">{artist.tagline}</p>
-</div>
+  <div class="wrap hx__in">
+    <div class="hx__title">
+    <p class="hx__first">{artist.firstName.toUpperCase()}</p>
+
+    <h1 id="hx-name" class="hx__name" data-name data-a={tailA} data-b={tailB} aria-label={`${artist.name}, alias ${artist.alias}`}>
+      <svg class="hx__h" viewBox="0 0 102 100" aria-hidden="true">
+        <rect x="0" y="0" width="20" height="100" class="ink" />
+        <rect x="20" y="41" width="50" height="18" class="ink hx__bar" />
+        <g class="hx__beam">
+          <rect x="58" y="0" width="44" height="15" />
+          <rect x="70" y="15" width="20" height="70" />
+          <rect x="58" y="85" width="44" height="15" />
+        </g>
+      </svg><span aria-hidden="true">{rest}</span><span class="hx__tail" aria-hidden="true" data-tail>{[...tailA].map((c) => <span class="hx__ch">{c}</span>)}</span>
+    </h1>
+    <p class="hx__roles">
+      <span class="visually-hidden">{artist.name} es {artist.alias}: {artist.roles.join(', ')}.</span>
+      <span aria-hidden="true">
+        <span class="hx__is">es <b>{artist.alias}</b> —</span>
+        <span class="hx__typed" data-typed data-roles={JSON.stringify(artist.roles)}>{artist.roles[0]}</span><span class="hx__caret"></span>
+      </span>
+    </p>
+    </div>
+
+    <div class="hx__foot">
+      <div class="hx__aside mono">
+        <span class="hx__hint" data-hint><span class="hx__hint-mouse">Mueve el cursor · haz clic</span><span class="hx__hint-touch">Toca la pantalla</span></span>
+        <a class="scroll-cue" href="#selecciones"><span>Bajar</span><span class="scroll-cue__line" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
