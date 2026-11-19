@@ -15,9 +15,11 @@ const shared = 'HERNAN';
 const tailA = last.slice(shared.length);         // DEZ
 const tailB = alias.slice(shared.length);        // PHY
 const rest = shared.slice(1);                    // ERNAN
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <section id="inicio" class="hx" aria-labelledby="hx-name" data-hero>
   <canvas class="hx__field" data-field aria-hidden="true"></canvas>
+  <img class="hx__photo" src={`${base}hernanphy-retrato.webp`} alt="" width="1230" height="1278" decoding="async" fetchpriority="high" aria-hidden="true" />
   <div class="hx__vignette" aria-hidden="true"></div>
 
   <div class="wrap hx__in">
@@ -48,6 +50,10 @@ const rest = shared.slice(1);                    // ERNAN
       <div class="hx__aside mono">
         <span class="hx__hint" data-hint><span class="hx__hint-mouse">Mueve el cursor · haz clic</span><span class="hx__hint-touch">Toca la pantalla</span></span>
         <a class="scroll-cue" href="#selecciones"><span>Bajar</span><span class="scroll-cue__line" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
       </div>
     </div>
   </div>
