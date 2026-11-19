@@ -144,7 +144,14 @@ body.menu-open { overflow: hidden; }
   background: var(--obsidiana);
 }
 .hx__field { position: absolute; inset: 0; display: block; touch-action: pan-y; }
+/* Retrato de fondo: translúcido, a pantalla completa, bajo la viñeta y el texto */
+.hx::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: url('../assets/hernanphy-retrato.webp') 50% 72% / cover no-repeat;
+  opacity: 0.38;
+}
 .hx__vignette {
+  z-index: 1;
   position: absolute; inset: 0; pointer-events: none;
   background:
     linear-gradient(to top, rgba(12, 14, 17, 0.92) 0%, rgba(12, 14, 17, 0.55) 30%, rgba(12, 14, 17, 0) 58%),
